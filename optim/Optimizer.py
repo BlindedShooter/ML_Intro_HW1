@@ -17,34 +17,31 @@ class SGD:
     def __init__(self, gamma, epsilon):
         # ========================= EDIT HERE =========================
         pass
-
-
         # =============================================================
 
     def update(self, w, grad, lr):
         updated_weight = None
         # ========================= EDIT HERE =========================
         updated_weight = w - lr*grad
-
-
         # =============================================================
         return updated_weight
 
 class Momentum:
     def __init__(self, gamma, epsilon):
         # ========================= EDIT HERE =========================
-        pass
-
-
+        self.prevGradient = np.zeros(1)
+        self.gamma = gamma
         # =============================================================
 
     def update(self, w, grad, lr):
         updated_weight = None
         # ========================= EDIT HERE =========================
-
-
-
-
+        if not self.prevGradient.any():
+            self.prevGradient = lr * grad
+            updated_weight = w - self.prevGradient
+        else:
+            self.prevGradient = lr * grad + self.gamma * self.prevGradient
+            updated_weight = w - self.prevGradient
         # =============================================================
         return updated_weight
 
